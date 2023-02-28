@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+{%load static%}
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Profile</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link rel="stylesheet" type="text/css" href="{% static 'css/profile.css'%}">
+
+    <link rel="stylesheet" href="{% static 'css/fonts.css'%}"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="{% static 'js/profile.js'%}"></script>
+
+</head>
+<body class="form-v6">
+
+	<header>
+		<div class="navbar">
+			<div class="logo"><a href="{%url 'main:home'%}"><img src="{% static 'images/logos/png/logo-no-background.png' %}" alt=""></a></div>
+			
+			  
+			  </div>
+	</header>
+
+
+
+
+	
+	<div class="page-content">
+		<div class="form-v6-content">
+			<form class="form-detail" method="post">
+			<div class="wrapper">
+	
+				<div class="container">
+					<div class="picture-container">
+						<div class="picture">
+							<img src=/{{user.profile_picture}} class="picture-src" id="wizardPicturePreview" title="">
+							{{profile_form.profile_picture}}
+						</div>
+
+						
+				
+					</div>
+				</div>
+				</div>
+
+				
+
+				<h2>Your information</h2>
+				<div class="form-row">
+					{{profile_form.first_name}}
+
+
+				</div>
+				<div class="form-row">
+					{{profile_form.last_name}}
+				</div>
+				<div class="form-row">
+					{{profile_form.email}}
+				</div>
+				<div class="form-row">
+					{{profile_form.phone}} 
+ 
+				</div>
+				
+                
+				<div class="form-row-last">
+                    <a href="/home"><input type="button" name="cancel" class="save" value="Cancel"></a>
+					<input type="submit" name="save" class="save" value="Save Changes">
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
