@@ -96,11 +96,12 @@ class LoginForm(forms.Form):
 
 class ProfileForm(forms.ModelForm):
 
-    profile_picture = forms.FileField( widget=TextInput(attrs={
-        'required':'false',
+    profile_picture = forms.FileField(required=False,  widget=TextInput(attrs={
+        
         'type':'file', 
-        'class':'', 
+        'class':'pic', 
         'id':'wizard-picture' ,
+        
         
 
     }))
@@ -131,7 +132,7 @@ class ProfileForm(forms.ModelForm):
 
     }))
 
-    email = forms.CharField(min_length=5, max_length=30, widget=TextInput(attrs={
+    email = forms.CharField(min_length=5, max_length=300, widget=TextInput(attrs={
         'required':'true', 
         'type':'email', 
         'name':'your-email', 
@@ -145,7 +146,7 @@ class ProfileForm(forms.ModelForm):
 
 
 
-    phone = forms.CharField(min_length=5, max_length=30, widget=TextInput(attrs={
+    phone = forms.CharField(min_length=5, max_length=30, required=False,  widget=TextInput(attrs={
         'required':'true', 
         'type':'text', 
         'name':'phone', 
@@ -159,4 +160,4 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = Users
-        fields = ('first_name','last_name', 'email','profile_picture','phone')
+        fields = ('first_name','last_name','phone', )

@@ -30,14 +30,16 @@
 	
 	<div class="page-content">
 		<div class="form-v6-content">
-			<form class="form-detail" method="post">
+			<form class="form-detail" method="post" enctype="multipart/form-data">
+				{% csrf_token %}
+				
 			<div class="wrapper">
 	
 				<div class="container">
 					<div class="picture-container">
 						<div class="picture">
-							<img src=/{{user.profile_picture}} class="picture-src" id="wizardPicturePreview" title="">
-							{{profile_form.profile_picture}}
+							<img src={{user.profile_picture.url}} class="picture-src" id="wizardPicturePreview" title="">
+							{{profile_form.profile_picture }}
 						</div>
 
 						
@@ -50,7 +52,9 @@
 
 				<h2>Your information</h2>
 				<div class="form-row">
+					
 					{{profile_form.first_name}}
+					
 
 
 				</div>
@@ -73,5 +77,14 @@
 			</form>
 		</div>
 	</div>
+	<script>
+	
+		document.getElementById('first-name').value = "{{user.first_name}}";
+		document.getElementById('last-name').value = "{{user.last_name}}";
+		document.getElementById('your-email').value = "{{user.email}}";
+		document.getElementById('phone').value = "{{user.phone}}";
+		document.getElementById('wizard-picture').value = "{{user.profile_picture}}";
+		
+	</script>
 </body>
 </html>

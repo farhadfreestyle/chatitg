@@ -8,14 +8,14 @@ class Users(AbstractUser):
     profile_picture = models.FileField(default='static/images/Profile_picture/pp.jpg', upload_to='static/images/Profile_picture/')
     username = models.CharField(max_length=30, unique=True)
     email = models.EmailField(unique=True)
-    phone = models.CharField(null=True, max_length=30)
+    phone = models.CharField(max_length=30)
+    last_name = models.CharField(null=True, max_length=30)
     is_active = models.BooleanField(default=True, null=True)
     last_login = models.DateField(null = True)
     is_staff = models.BooleanField(default=False) # a admin user; non super-user
     admin = models.BooleanField(default=False) # a superuser
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'username']
-    
+    REQUIRED_FIELDS = ['first_name','last_name','phone']
 
 
     def __str__(self):

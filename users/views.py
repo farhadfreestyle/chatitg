@@ -12,7 +12,7 @@ class LoginView(View):
     def get(self, request):
         form = self.form_class()
         
-        return render(request, self.template_name, context={'login_form':form, 'register_form':RegisterForm,})
+        return render(request, self.template_name, context={'login_form':form, 'register_form':RegisterForm})
     
     def post(self, request):
         message = []
@@ -59,20 +59,13 @@ class LoginView(View):
 
 
             elif password1!=password2:
-                    message.append('Type slowly ;)')
+                    message.append('Passwords do not match. Type slowly ;)')
         
-     
-    
-            elif registerForm.is_valid():
 
-                            
-                
-                
+            elif registerForm.is_valid():
               
                 email = registerForm.cleaned_data['email']
-              
-              
-                
+
                 registerForm.save()
                 
                 user = Users.objects.get(email = email)
@@ -81,15 +74,6 @@ class LoginView(View):
                 user.save()
                 
                 return redirect('/login/')
-            else:
-                message.append('Use stronger password my dear! Do not use your first or last name in password. Hackers like it :)')
-                print('Error happened')
-                registerForm = RegisterForm()
-            
-          
-                
-
-            
 
             return render(request, 'users/login.html', context={'register_form':registerForm, 'error_message':message[::-1], 'login_form':LoginForm})
 
@@ -109,5 +93,38 @@ class ProfileView(View):
     
     def get(self, request):
         form = self.form_class()
+        user = Users.objects.get(email = request.user.email)
+        return render(request, self.template_name, context={'profile_form':form,'user':user})
+
+    def post(self, request):
+        message = []
+
+        profileform = ProfileForm(request.POST, request.FILES)
         
-        return render(request, self.template_name, context={'profile_form':form,})
+        
+        
+ 
+        if profileform.is_valid():
+            print('Validation passed')
+            first_name = request.POST['first_name']
+            last_name = request.POST['last_name']
+        
+            phone = request.POST['phone']
+            user = Users.objects.get(email=request.user.email)
+            print(user)
+            user.first_name = first_name
+            user.last_name = last_name
+            user.phone = phone
+            if 'profile_picture' in request.FILES:
+                user.profile_picture = request.FILES['profile_picture']
+            else:
+                pass            
+            user.save()
+            return redirect('/profile/')
+    
+        else:
+            message.append('Something went wrong. Check the details!')
+            print('Error happened')
+            profileform = ProfileForm()
+        return render(request, 'users/profile.html', context={'profile_form':self.form_class, 'error_message':message[::-1],})
+            
